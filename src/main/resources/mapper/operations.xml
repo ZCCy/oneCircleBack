@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qingyou.manage.dao.OperationsDao">
+    <insert id="irtOperations" parameterType="String">
+        insert into operations_ (operations) value (#{operations})
+    </insert>
+    <select id="getOperationsList" resultType="com.qingyou.manage.entity.Operations">
+        select *from operations_ where del_flag=0
+    </select>
+</mapper>

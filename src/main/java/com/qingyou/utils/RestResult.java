@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 public class RestResult {
     static Logger logger = LoggerFactory.getLogger(RestResult.class);
 
-    private String code;
+    private int code;
     private Object data;
     private Object errorMessage;
     public static final int STATUS_SUCCESS = 2000;
@@ -24,7 +24,7 @@ public class RestResult {
     public static final int STATUS_OTHERS = 5002;
     public static final int STATUS_FALLBACK = 6001;
 
-    public RestResult(String code, Object data, Object errorMessage) {
+    public RestResult(int code, Object data, Object errorMessage) {
         this.code = code;
         this.data = data;
         this.errorMessage = errorMessage;
@@ -40,11 +40,11 @@ public class RestResult {
     }
 
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public RestResult setCode(String code) {
+    public RestResult setCode(int code) {
         this.code = code;
         return this;
     }

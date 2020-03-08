@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qingyou.commodityPools.dao.CommodityPoolsDao">
+    <select id="getList" resultType="com.qingyou.commodityPools.enityt.CommodityPools">
+    select * from commodity_pools_ where del_flag=0
+    </select>
+    <select id="getStarList" resultType="com.qingyou.commodityPools.enityt.CommodityPools">
+        select * from commodity_pools_
+        where del_flag=0 and star =1
+    </select>
+    <select id="srchById" resultType="com.qingyou.commodityPools.enityt.CommodityPools">
+        select *from commodity_pools_
+        where del_flag=0 and id =#{id}
+    </select>
+</mapper>
