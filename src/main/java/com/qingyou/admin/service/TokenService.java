@@ -1,23 +1,26 @@
 package com.qingyou.admin.service;
 
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
+import com.qingyou.admin.dao.UserDao;
 import com.qingyou.admin.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class TokenService {
+    @Autowired
+    UserDao userDao;
 
     public String getToken(User user) {
         Date start = new Date();
-        long currentTime = System.currentTimeMillis() + 60* 60 * 1000;//一小时有效时间
+        long currentTime = System.currentTimeMillis() + 1000*20;//一小时有效时间
         Date end = new Date(currentTime);
         String token = "";
 
@@ -26,20 +29,21 @@ public class TokenService {
         return token;
     }
 
-    public User checkToken(String token){
+    public User checkToken(String token)  {
+        System.out.println("000");
         if (token == null) {
             throw new RuntimeException("无token，请重新登录");
         }
         // 获取 token 中的 user id
-        String userId;
+        long userId;
         try {
-            DecodedJWT aa=JWT.decode(token);
-            List<String> bb= JWT.decode(token).getAudience();
-            JWT.decode(token).getAudience().get(0);
+            System.out.println(token);
+            userId=Long.parseLong(JWT.decode(token).getAudience().get(0));
         } catch (JWTDecodeException j) {
-            throw new RuntimeException("401");
+            throw new RuntimeException("无效token");
         }
-        User user = null;             //TODO
+        User user = null;
+        user=userDao.foundUserById(userId);
         if (user == null) {
             throw new RuntimeException("用户不存在，请重新登录");
         }
@@ -48,7 +52,9 @@ public class TokenService {
         try {
             jwtVerifier.verify(token);
         } catch (JWTVerificationException e) {
-            throw new RuntimeException("401");
+            User user1 = new User();
+            user1.setId(-1);
+            return user1;
         }
         return user;
     }

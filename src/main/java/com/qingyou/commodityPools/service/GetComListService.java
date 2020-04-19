@@ -3,6 +3,7 @@ package com.qingyou.commodityPools.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
+import com.qingyou.admin.service.TokenService;
 import com.qingyou.commodityPools.dao.CommodityPoolsDao;
 import com.qingyou.commodityPools.enityt.CommodityPools;
 import org.slf4j.Logger;
@@ -11,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -20,8 +23,11 @@ public class GetComListService {
     @Autowired
     CommodityPoolsDao commodityPoolsDao;
 
-    public List<CommodityPools> getList(String postJson){
-        System.out.println("***************************"+postJson+"*******************");
+    @Autowired
+    TokenService tokenService;
+
+    public List<CommodityPools> getList(String postJson,String token)  {
+        tokenService.checkToken(token);
         JSONObject jsonObject = JSON.parseObject(postJson);
         int pageNum=jsonObject.getInteger("pagenum");
         PageHelper.startPage(pageNum, 500);
@@ -30,7 +36,8 @@ public class GetComListService {
         return list;
     }
 
-    public List<CommodityPools> getStarList(String postJson){
+    public List<CommodityPools> getStarList(String postJson,String token)  {
+        tokenService.checkToken(token);
         JSONObject jsonObject = JSON.parseObject(postJson);
         int pageNum=jsonObject.getInteger("pagenum");
         PageHelper.startPage(pageNum, 500);
@@ -39,9 +46,23 @@ public class GetComListService {
         return list;
     }
 
-    public CommodityPools getComById(String postJson){
+    public HashMap<String,Long> getNum(String postJson,String token){
+        tokenService.checkToken(token);
+        HashMap<String,Long> map =new HashMap<>();
+        List<CommodityPools> list = new ArrayList<>();
+        list= commodityPoolsDao.getList();
+        map.put("总商品数",(long)list.size());
+        list= commodityPoolsDao.getStarList();
+        map.put("标记商品数",(long)list.size());
+        list=commodityPoolsDao.getDownList();
+        map.put("已下架商品总数",(long)list.size());
+        return map;
+    }
+
+    public CommodityPools getComById(String postJson,String token) {
+        tokenService.checkToken(token);
         JSONObject jsonObject = JSON.parseObject(postJson);
-        int id=jsonObject.getInteger("id");
+        int id=Integer.valueOf(jsonObject.getString("id"));
         CommodityPools commodityPools=null;
         try {
             commodityPools = commodityPoolsDao.srchById(id);

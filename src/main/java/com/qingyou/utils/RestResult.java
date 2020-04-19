@@ -13,21 +13,24 @@ public class RestResult {
 
     private int code;
     private Object data;
-    private Object errorMessage;
-    public static final int STATUS_SUCCESS = 2000;
+    private Object Message;
+    public static final int STATUS_SUCCESS = 200;
     // 数据重复
-    public static final int STATUS_DUPLICATION = 2001;
-    public static final int STATUS_WRONG_FORMAT = 4000;
-    public static final int STATUS_VALID_FAILED = 4001;
-    public static final int STATUS_OUT_OF_SERVICE = 4002;
-    public static final int STATUS_ENHANCE_FAILED = 5001;
-    public static final int STATUS_OTHERS = 5002;
-    public static final int STATUS_FALLBACK = 6001;
+    public static final int STATUS_DUPLICATION = 201;
+    //错误的格式
+    public static final int STATUS_WRONG_FORMAT = 400;
+    //认证失败
+    public static final int STATUS_VALID_FAILED = 401;
+    public static final int STATUS_OUT_OF_SERVICE = 402;
+    public static final int STATUS_ENHANCE_FAILED = 501;
+    //其它（就是500报错）
+    public static final int STATUS_OTHERS = 500;
+    public static final int STATUS_FALLBACK = 601;
 
-    public RestResult(int code, Object data, Object errorMessage) {
+    public RestResult(int code, Object data, Object Message) {
         this.code = code;
         this.data = data;
-        this.errorMessage = errorMessage;
+        this.Message = Message;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class RestResult {
         return "RestResult{" +
                 ", code='" + code + '\'' +
                 ", data=" + data +
-                ", errorMessage=" + errorMessage +
+                ", errorMessage=" + Message +
                 '}';
     }
 
@@ -58,12 +61,12 @@ public class RestResult {
         return this;
     }
 
-    public Object getErrorMessage() {
-        return errorMessage;
+    public Object getMessage() {
+        return Message;
     }
 
-    public RestResult setErrorMessage(Object errorMessage) {
-        this.errorMessage = errorMessage;
+    public RestResult setMessage(Object errorMessage) {
+        this.Message = errorMessage;
         return this;
     }
 }

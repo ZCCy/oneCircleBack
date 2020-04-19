@@ -9,19 +9,33 @@ public class Operations {
 
     private String operations;
 
-    private Timestamp operations_time;
+    private Timestamp operaetions_time;
+
+    private long update_By;
+
+    private long goodId;
 
     @JsonIgnore
     private long del_flag;
 
-    @Override
-    public String toString() {
-        return "Operations{" +
-                "id=" + id +
-                ", operations='" + operations + '\'' +
-                ", operations_time=" + operations_time +
-                ", del_flag=" + del_flag +
-                '}';
+
+
+    public long getGoodId() {
+        return goodId;
+    }
+
+    public Operations setGoodId(long goodId) {
+        this.goodId = goodId;
+        return this;
+    }
+
+    public long getUpdate_By() {
+        return update_By;
+    }
+
+    public Operations setUpdate_By(long update_By) {
+        this.update_By = update_By;
+        return this;
     }
 
     public long getId() {
@@ -42,12 +56,12 @@ public class Operations {
         return this;
     }
 
-    public Timestamp getOperations_time() {
-        return operations_time;
+    public Timestamp getOperaetions_time() {
+        return operaetions_time;
     }
 
-    public Operations setOperations_time(Timestamp operations_time) {
-        this.operations_time = operations_time;
+    public Operations setOperaetions_time(Timestamp operaetions_time) {
+        this.operaetions_time = operaetions_time;
         return this;
     }
 

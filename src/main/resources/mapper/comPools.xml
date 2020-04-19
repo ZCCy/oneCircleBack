@@ -9,6 +9,10 @@
         select * from commodity_pools_
         where del_flag=0 and star =1
     </select>
+    <select id="getDownList" resultType="com.qingyou.commodityPools.enityt.CommodityPools">
+        select * from commodity_pools_
+        where del_flag=0 and status ='已下架'
+    </select>
     <select id="srchById" resultType="com.qingyou.commodityPools.enityt.CommodityPools">
         select *from commodity_pools_
         where del_flag=0 and id =#{id}

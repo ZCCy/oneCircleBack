@@ -9,5 +9,6 @@ import java.util.List;
 public interface CommodityPoolsDao {
     List<CommodityPools> getList();
     List<CommodityPools> getStarList();
+    List<CommodityPools> getDownList();
     CommodityPools srchById(long id);
 }

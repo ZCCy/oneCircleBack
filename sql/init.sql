@@ -1,3 +1,35 @@
+create table commodity_pools_ (
+                                  id            integer unsigned auto_increment,
+                                  title         varchar(255) not null,
+                                  status        varchar(20) not null comment '1：在售，0：交易中，2已下架',
+                                  update_by     integer not null,
+                                  update_time   timestamp    default CURRENT_TIMESTAMP  on update CURRENT_TIMESTAMP,
+                                  create_time   timestamp    default CURRENT_TIMESTAMP ,
+                                  del_flag      integer      default 0,
+                                  primary key(id)
+);
+alter table commodity_pools_ add  star bool default  0;
+create table operations_ (
+                             id          integer unsigned auto_increment,
+                             operations  varchar(255) not null ,
+                             operaetions_time timestamp    default CURRENT_TIMESTAMP ,
+                             update_by   integer not null,
+                             del_flag    integer      default 0,
+                             primary key(id)
+);
+alter table operations_ add  goodId  bigint not null ;
+create table user_ (
+                       id            integer unsigned auto_increment,
+                       username      varchar(255) not null,
+                       password      varchar(255) not null ,
+                       root          integer      not null default 0 comment '0:普通用户，1:root',
+                       update_by     integer not null,
+                       update_time   timestamp    default CURRENT_TIMESTAMP  on update CURRENT_TIMESTAMP,
+                       create_time   timestamp    default CURRENT_TIMESTAMP ,
+                       del_flag      integer      default 0,
+                       primary key(id)
+);
+
 INSERT INTO commodity_pools_   (title,status,update_by) VALUES ("商品标题","交易中",1);
 INSERT INTO commodity_pools_   (title,status,update_by) VALUES ("商品标题","交易中",1);
 INSERT INTO commodity_pools_   (title,status,update_by) VALUES ("商品标题","交易中",1);

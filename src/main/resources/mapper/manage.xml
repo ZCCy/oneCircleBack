@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qingyou.manage.dao.ChangeComDao">
+    <update id="moveOff" >
+        update commodity_pools_ set status="已下架",update_by=#{update_by}
+        where id=#{comId} and del_flag=0
+    </update>
+    <update id="delCom">
+        update commodity_pools_ set del_flag=1,update_by=#{update_by}
+        where id=#{comId}
+    </update>
+    <update id="statusChange">
+        update commodity_pools_ set star=ABS(star-1),update_by=#{update_by}
+        where id=#{comId} and del_flag=0
+    </update>
+</mapper>

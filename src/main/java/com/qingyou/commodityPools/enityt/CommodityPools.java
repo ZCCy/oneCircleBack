@@ -16,7 +16,6 @@ public class CommodityPools {
 
     private Timestamp update_time;
 
-    @JsonIgnore
     private Boolean star;//1:标记   0:没有标记
 
     private long update_by;
