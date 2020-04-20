@@ -20,7 +20,7 @@ public class TokenService {
 
     public String getToken(User user) {
         Date start = new Date();
-        long currentTime = System.currentTimeMillis() + 1000*20;//一小时有效时间
+        long currentTime = System.currentTimeMillis() + 1000*60*5;//一小时有效时间
         Date end = new Date(currentTime);
         String token = "";
 
